@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/Ajax/10common/ajaxUtil01.js"></script>
+<script type="text/javascript">
+	
+	$(function(){
+		
+		$("#address").on("click",function(){
+			getCustomerInfo();
+		});
+		
+		$("form")[0].reset();
+	});
+	
+	//server로 get방식 request
+	function getCustomerInfo(){
+		
+		//ajaxUtil01.js 모듈의 createRequest() 호출
+		createRequest();
+
+	//	var name = document.getElementById("name").value;
+	//	var name = $("#name").val();
+		var name = $( $("input")[0] ).val();
+	//	var phone = document.getElementById("phone").value;
+	//	var phone = $("#phone").val();
+		var phone = $( $("input")[1] ).val();	
+		var url = "get-orderServer.jsp?name="+name+"&phone="+phone;
+		
+		//연결초기화 : open(Method, URL, 비동기 유무)
+		request.open("GET", url, true);
+
+		//send() 호출 전 아래의 속성을 지정 : CallBackFunction 지정
+		request.onreadystatechange = updatePage;
+		//request시 data전송 없음
+		request.send(null);
+	}
+	//CallBackFunction Definition
+	function updatePage(){
+ 		
+ 		//==> readyState = 4 인경우 실행
+ 		if ( request.readyState ==4) {
+ 			
+ 			//== status code = 200(정상적 요청처리) 경우
+ 			if(request.status == 200){
+ 				
+		 		//request대한 응답 responseTest받기 
+		 		var serverData = request.responseText;
+		 		var displayValue = trim(serverData);
+		 		
+		 		//Debug..
+		 		alert("server로 부터 받은 내용 : \n"+displayValue);
+		 		
+		 		//document.getElementById("address").value= displayValue;
+		 		 $('#address').val(displayValue);
+ 			}else{
+    			//==> status code가 200이 아닌경우 message출력 
+	 			//==> statusText ::==> Cross Browser NG
+				alert("에러 발생 : "+request.status);
+ 	
+ 			}
+ 		}
+	}
+	
+	//trim 정의 Function
+	function trim(str) {  
+		return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');  
+	}  
+
+	</script>
+</head>
+
+   <form>
+   
+      <p>이 &nbsp;&nbsp;&nbsp;&nbsp; 름  :  
+            <input type="text" size="14" name="name"  id ="name"/>
+      </p>
+      
+      <p>전화번호 :  
+            <input type="text" size="14" name="phone"  id="phone"/>
+      </p>
+   
+      <p>주 &nbsp;&nbsp;&nbsp;&nbsp; 소 : </p>  
+   
+      <p>
+         <textarea    rows="3" cols="50" name="address" id="address" 
+                         >이름을 입력후 :: 여기에click...</textarea>   
+      </p>
+            
+      <p><input type="submit" value="주문하기" id="submit"/></p>
+      
+   </form>
+   
+</body>
+</html>
