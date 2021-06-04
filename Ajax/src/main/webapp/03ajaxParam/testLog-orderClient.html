@@ -4,6 +4,7 @@
 <meta charset="EUC-KR">
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="/Ajax/10common/ajaxUtil02.js"></script>
+<script type="text/javascript" src="/Ajax/10common/logUtil03.js"></script>
 <script type="text/javascript">
 	
 	$(document).ready(function(){
@@ -68,17 +69,19 @@
  				
 		 		//request대한 응답 responseTest받기 
 		 		var serverData = request.responseText;
-		 		var displayValue = trim(serverData);
-		 		
+		 		//var displayValue = trim(serverData);
+		 		var displayValue = $.trim(serverData);
 		 		//Debug..
 		 		alert("server로 부터 받은 내용 : \n"+displayValue);
 		 		
 		 		//inner HTML속성은 Html태그 안의 html 코드를 의미한다.
 		 		//==> 예>> 출력을 확인하여 이해하면
-		 		var testInnerHtml = document.getElementById("testInnerHtml");
-		 		alert("예1 ::_"+testInnerHtml.innerHTML+"_");
-		 		alert("예1 ::_"+testInnerHtml.innerText+"_");
-		 		
+		 		//var testInnerHtml = document.getElementById("testInnerHtml");
+		 		var InnerHtml = $('p').eq(4);
+		 		//alert("예1 ::_"+InnerHtml.html()+"_");
+		 		//alert("예2 ::_"+InnerHtml.text+"_");
+		 		log("예1 ::_"+InnerHtml.html()+"_");
+		 		log("예1 ::_"+InnerHtml.text()+"_");
 		 		//위의 의미를 이해하였다면 :: innerHTML, innerTest
 		 		/*///////////////////////////////////////////////////////////////
 		 		server에서 전송받은 주소 html 적용
@@ -89,16 +92,12 @@
  			}else{
     			//==> status code가 200이 아닌경우 message출력 
 	 			//==> statusText ::==> Cross Browser NG
-				alert("에러 발생 : "+request.status);
- 	
+				//alert("에러 발생 : "+request.status);
+ 				log("에러 발생 : "+request.status);
  			}
  		}
 	}
-	
-	//trim 정의 Function
-	function trim(str) {  
-		return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');  
-	}  
+
 
 	</script>
 </head>
@@ -123,6 +122,10 @@
       <p id="testInnerHtml">XXX<input type="submit" value="주문하기" id="submit"/>YYY</p>
       
    </form>
+   
+   <div id="console" style="border: 3px solid #F00" >
+      log 출력 :  <br/>
+   </div>
    
 </body>
 </html>

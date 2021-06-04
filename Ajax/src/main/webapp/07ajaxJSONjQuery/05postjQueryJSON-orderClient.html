@@ -2,9 +2,27 @@
 <html>
 <head>
 <meta charset="EUC-KR">
+
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="/Ajax/10common/ajaxUtil02.js"></script>
 <script type="text/javascript">
+	
+	
+	/*//////////////////////////////////////////////////////////////////
+	
+	- 04postjQuery-orderClient.html
+		==> javascript+jQuery+ajax+Data(String) 사용
+		
+	- 05postjQueryJSON-orderClient.html
+		==> javascript + jQuery + ajax + JSON 사용	
+	*///////////////////////////////////////////////////////////////////
+	
+	
+	
+	
+	
+	
+	
 	
 	$(document).ready(function(){
 		
@@ -29,7 +47,7 @@
 		//	var phone = document.getElementById("phone").value;
 		//	var phone = $("#phone").val();
 			var phone = $("input").eq(1).val();	
-		var url = "post-orderServer.jsp";
+		var url = "postJSON-orderServer.jsp";
 
 		
 /*/////////////////////////////////////////////////////////////////////////////////////////		
@@ -44,9 +62,9 @@
 		//==>openSendRequest(httpURL, httpMETHOD, httpPARAM, callBackMethod) 호출
 		//==>:: open()/send()/callback() Method등 수행
 		
-		//var queryString = "name="+name+"&phone="+phone;		
+		var queryString = "name="+name+"&phone="+phone;		
 		//==>UTF-8로 인코딩 전송
-		var queryString = "name="+encodeURIComponent(name)+"&phone="+phone;
+		//var queryString = "name="+encodeURIComponent(name)+"&phone="+phone;
 		
 		//Debug..
 		alert(queryString);
@@ -68,16 +86,25 @@
  				
 		 		//request대한 응답 responseTest받기 
 		 		var serverData = request.responseText;
-		 		var displayValue = trim(serverData);
-		 		
+		 		//var displayValue = trim(serverData);
+		 		//var displayValue = $.trim(serverData);
 		 		//Debug..
-		 		alert("server로 부터 받은 내용 : \n"+displayValue);
+		 		alert("server로 부터 받은 내용 : \n"+serverData);
+		 		
+		 		var JSONData = $.parseJSON(serverData);
+		 		
+		 		alert("JSONData : \n"+JSONData);
+		 		
+		 		var displayValue = "이름 :"+JSONData.name+"\n"
+		 							+"전화 :"+JSONData.phone+"\n"
+		 							+"주소 :"+JSONData.address;
 		 		
 		 		//inner HTML속성은 Html태그 안의 html 코드를 의미한다.
 		 		//==> 예>> 출력을 확인하여 이해하면
-		 		var testInnerHtml = document.getElementById("testInnerHtml");
-		 		alert("예1 ::_"+testInnerHtml.innerHTML+"_");
-		 		alert("예1 ::_"+testInnerHtml.innerText+"_");
+		 		//var testInnerHtml = document.getElementById("testInnerHtml");
+		 		//var InnerHtml = $('p').eq(4);
+		 		//alert("예1 ::_"+InnerHtml.html()+"_");
+		 		//alert("예1 ::_"+InnerHtml.text+"_");
 		 		
 		 		//위의 의미를 이해하였다면 :: innerHTML, innerTest
 		 		/*///////////////////////////////////////////////////////////////

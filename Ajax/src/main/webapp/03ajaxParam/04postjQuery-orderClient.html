@@ -68,16 +68,17 @@
  				
 		 		//request대한 응답 responseTest받기 
 		 		var serverData = request.responseText;
-		 		var displayValue = trim(serverData);
-		 		
+		 		//var displayValue = trim(serverData);
+		 		var displayValue = $.trim(serverData);
 		 		//Debug..
 		 		alert("server로 부터 받은 내용 : \n"+displayValue);
 		 		
 		 		//inner HTML속성은 Html태그 안의 html 코드를 의미한다.
 		 		//==> 예>> 출력을 확인하여 이해하면
-		 		var testInnerHtml = document.getElementById("testInnerHtml");
-		 		alert("예1 ::_"+testInnerHtml.innerHTML+"_");
-		 		alert("예1 ::_"+testInnerHtml.innerText+"_");
+		 		//var testInnerHtml = document.getElementById("testInnerHtml");
+		 		var InnerHtml = $('p').eq(4);
+		 		alert("예1 ::_"+InnerHtml.html()+"_");
+		 		alert("예1 ::_"+InnerHtml.text+"_");
 		 		
 		 		//위의 의미를 이해하였다면 :: innerHTML, innerTest
 		 		/*///////////////////////////////////////////////////////////////
